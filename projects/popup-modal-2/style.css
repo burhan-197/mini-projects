@@ -1,0 +1,114 @@
+body {
+    background-color: rgba(222, 205, 172, 1);
+    height: 100vh;
+
+}
+
+.pop-up {
+    width: 500px;
+    height: 300px;
+    background-color: rgba(254, 250, 243, 1);
+    border-radius: 24px;
+    position: fixed;
+    box-shadow: 0px 8px 16px 3px rgba(0, 0, 0, 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
+    z-index: 2;
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    border: none;
+    position: fixed;
+    margin: auto;
+    inset: 0;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: rgba(254, 250, 243, 1);
+    height: 50px;
+    border-radius: 10px;
+}
+
+.pop-up.popup-open {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cross {
+    color: rgba(175, 161, 135, 1);
+    font-size: 32px;
+    font-weight: 700;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 12px;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.popup-open .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.img img {
+    width: 180px;
+    height: 180px;
+}
+
+.img {
+    position: absolute;
+    top: -70px;
+    left: 50px;
+
+}
+
+.text {
+    margin-top: 60px;
+    margin-left: 100px;
+
+}
+
+/* ── Responsive pass 2026-11-16: popup keeps its 500px content width on desktop,
+   but the total box (incl. padding) always fits the phone ── */
+.pop-up {
+    width: min(500px, calc(100vw - 40px));
+}
+
+@media (max-width: 560px) {
+    .pop-up {
+        height: auto;
+        min-height: 260px;
+    }
+
+    .img {
+        left: 18px;
+        top: -52px;
+    }
+
+    .img img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .text {
+        margin-left: 128px;
+        margin-top: 30px;
+    }
+}

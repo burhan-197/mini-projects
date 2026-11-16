@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3fbff;
+}
+
+.img-box {
+    width: 60%;
+    margin: auto;
+    line-height: 0;
+    background-image: url(./background_change_img/background.png);
+    overflow: hidden;
+    position: relative;
+}
+
+.img-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+
+}
+
+/* ── Responsive pass 2026-11-16: comparison box uses the full phone width
+   (script.js reads offsetWidth at load, so it adapts automatically) ── */
+@media (max-width: 700px) {
+    .img-box {
+        width: 94%;
+    }
+}

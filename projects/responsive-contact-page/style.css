@@ -1,0 +1,200 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    padding: 24px 0;
+    width: 100%;
+    background: #c8e8e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px; /* Prevent the container from getting too wide */
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px 40px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px; /* Add spacing between columns */
+}
+
+.container .content .left-side {
+    width: 30%;
+}
+
+.container .content .right-side {
+    width: 65%;
+}
+
+.content .left-side .details {
+    margin: 14px 0;
+    text-align: center;
+}
+
+.content .left-side .details i {
+    font-size: 30px;
+    color: #3e2093;
+    margin-bottom: 10px;
+}
+
+.content .left-side .details .topic {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.content .left-side .details .text-one,
+.content .left-side .details .text-two {
+    font-size: 14px;
+    color: #afafb6;
+}
+
+.right-side .topic-text {
+    font-size: 23px;
+    font-weight: 600;
+    color: #3e2093;
+}
+
+.right-side .input-box {
+    height: 50px;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.right-side .input-box input,
+.right-side .input-box textarea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background: #f0f1f8;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 15px;
+    resize: none;
+}
+
+.right-side .message-box {
+    min-height: 110px;
+}
+
+.right-side .button {
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.right-side .button input[type="submit"] {
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background: #3e2093;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button input[type="submit"]:hover {
+    background: #5029bc;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+        padding: 20px 30px;
+    }
+
+    .container .content {
+        flex-wrap: wrap; /* Allow columns to wrap */
+    }
+
+    .container .content .left-side {
+        width: 100%; /* Full width on smaller screens */
+        text-align: left; /* Align text to the left for better readability */
+        margin-bottom: 20px;
+    }
+
+    .container .content .right-side {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Add padding to avoid content touching edges */
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .content .left-side .details i {
+        font-size: 25px; /* Reduce icon size */
+    }
+
+    .content .left-side .details .topic {
+        font-size: 16px;
+    }
+
+    .content .left-side .details .text-one,
+    .content .left-side .details .text-two {
+        font-size: 13px;
+    }
+
+    .right-side .topic-text {
+        font-size: 20px;
+    }
+
+    .right-side .input-box input,
+    .right-side .input-box textarea {
+        font-size: 14px;
+    }
+
+    .right-side .button input[type="submit"] {
+        font-size: 16px;
+        padding: 6px 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 10px;
+    }
+
+    .content .left-side {
+        display: flex; /* Keep the contact details visible, wrapped in a row */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px 20px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .content .right-side {
+        width: 100%;
+        text-align: center; /* Center-align form content for small screens */
+    }
+
+    .right-side .topic-text {
+        font-size: 18px;
+    }
+
+    .right-side .button input[type="submit"] {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+}

@@ -1,0 +1,73 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+    background: #0f0f0f;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    
+}
+.box{
+    color: white;
+    background-color: rgb(20, 20, 41);   
+    border-radius: 10px;
+    width: min(300px, 92vw);
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 8px 20px rgba(49, 49, 49, 0.4);
+}
+.box h1{
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight:bold;
+}
+.box p{
+    font-size: 0.9rem;
+    font-weight: 200;
+    line-height: 1.4;
+    
+}
+.box::after,.box::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+   transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    background: conic-gradient(from var(--angle),   transparent 50% , blue);
+    padding: 3px;
+    z-index: -1;
+  --angle:0deg;
+}
+.box::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+.box::after{
+    animation: border 3.5s linear infinite;
+}
+@keyframes border{
+    from{
+        --angle:0deg;
+    }
+    to{
+        --angle:360deg;
+    }
+
+}

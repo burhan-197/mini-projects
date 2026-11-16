@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-hover: rgba(255, 255, 255, 0.15);
+    --accent: #ff6b6b;
+    --text-primary: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.55);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(180, 30, 80, 0.55) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 100, 60, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 60% 85%, rgba(100, 0, 80, 0.5) 0%, transparent 50%),
+        linear-gradient(135deg, #1a0010 0%, #3d0020 40%, #1c000e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Decorative grid lines */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+/* Floating orb decorations */
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 107, 107, 0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+        0 0 0 80px rgba(255, 107, 107, 0.03),
+        0 0 0 160px rgba(255, 107, 107, 0.02);
+    pointer-events: none;
+    animation: pulse-ring 4s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.6;
+    }
+}
+
+/* ─── Selector wrapper ─── */
+.selector {
+    width: 360px;
+    position: relative;
+    z-index: 10;
+    animation: slide-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Label above the field */
+.selector::before {
+    content: 'CONNECT WITH';
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* ─── Select field ─── */
+#selectField {
+    width: 100%;
+    padding: 18px 22px;
+    margin-bottom: 0;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    user-select: none;
+}
+
+#selectField:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255, 107, 107, 0.45);
+    box-shadow: var(--shadow), 0 0 0 3px rgba(255, 107, 107, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Arrow icon — rotate when open */
+#selectField img {
+    width: 14px;
+    opacity: 0.65;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+    filter: invert(1);
+}
+
+/* When list is open, rotate arrow */
+#list.open~#selectField img,
+/* fallback */
+.selector:has(#list.open) #selectField img {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* Inline selected platform icon */
+#selectField p img {
+    width: 24px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 6px;
+}
+
+/* ─── Dropdown list ─── */
+#list {
+    width: 100%;
+    background: rgba(18, 4, 12, 0.85);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: none;
+    overflow: hidden;
+    margin-top: 10px;
+    box-shadow: var(--shadow), 0 24px 60px rgba(0, 0, 0, 0.5);
+    animation: dropdown-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes dropdown-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#list.open {
+    display: block;
+}
+
+/* ─── Each option ─── */
+.options {
+    width: 100%;
+    padding: 14px 20px 14px 68px;
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.02em;
+    transition: background 0.18s, color 0.18s, padding-left 0.22s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.options:last-child {
+    border-bottom: none;
+}
+
+.options img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 8px;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.options:hover {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ffffff;
+    padding-left: 74px;
+}
+
+.options:hover img {
+    transform: translateY(-50%) scale(1.12) rotate(-4deg);
+}
+
+/* ── Responsive pass 2026-11-16: clip the decorative ring to the hero (it was already
+   visually clipped by body's overflow:hidden — this also stops it expanding scrollWidth),
+   and cap the selector at its original 360px ── */
+.hero {
+    overflow: hidden;
+}
+
+.selector {
+    width: min(360px, 92vw);
+}

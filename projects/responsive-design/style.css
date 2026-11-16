@@ -1,0 +1,118 @@
+/* ============================================================
+   REBUILT STYLESHEET - responsive-design
+   The original style.css (67 bytes) contained only a global
+   reset; every class used in index.html (bg-white, text-center,
+   split, bg-dark, bg-brown) was undefined, so the page rendered
+   completely unstyled with its images at natural size (5120px
+   wide). This sheet rebuilds the intended design from the
+   markup: a light centered header, a two-column "Quality
+   Design" section, a dark text+image section and a brown
+   image+text section, stacking to one column on mobile.
+   ============================================================ */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --ink: #263238;
+    --muted: #5f6a72;
+    --cream: #f6f1e7;
+    --dark: #222c2a;
+    --brown: #824936;
+}
+
+body{
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    line-height: 1.6;
+    background: #ffffff;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* ---------- layout ---------- */
+header,
+section{
+    padding: clamp(3rem, 8vw, 5.5rem) 1.25rem;
+}
+header > *,
+section > *{
+    max-width: 68rem;
+    margin-inline: auto;
+}
+
+/* ---------- section themes ---------- */
+.bg-white{
+    background: var(--cream);
+}
+.text-center{
+    text-align: center;
+}
+.bg-dark{
+    background: var(--dark);
+    color: #f4f4f4;
+}
+.bg-brown{
+    background: var(--brown);
+    color: #fdf7f2;
+}
+
+/* ---------- type ---------- */
+header p{
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+header h1{
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    font-weight: 800;
+}
+h2{
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+}
+section p{
+    max-width: 62ch;
+}
+
+/* ---------- split layout ---------- */
+.split{
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+}
+.split > *{
+    flex: 1 1 0;
+    min-width: 0;
+}
+body > section:first-of-type .split{
+    align-items: flex-start;
+}
+.split img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- mobile: stack ---------- */
+@media (max-width: 700px){
+    .split{
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .split img{
+        max-height: 280px;
+    }
+}

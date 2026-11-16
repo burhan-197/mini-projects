@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #222;
+}
+
+.card {
+    width: 90%;
+    max-width: 470px;
+    background: linear-gradient(135deg, #00feba, #5b548e);
+    color: #fff;
+    margin: 100px auto 0px;
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search input {
+    width: 100%;
+    outline: none;
+    color: #555;
+    background-color: #ebfffc;
+    border: 0;
+    border-radius: 30px;
+    height: 60px;
+    padding: 10px 25px;
+    font-size: 16px;
+    flex: 1;
+    margin-right: 16px;
+}
+
+.search button {
+    background-color: #ebfffc;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+
+.search button img {
+    width: 16px;
+}
+
+.weather {
+    text-align: center;
+    display: none;
+}
+
+.weather-icon {
+    width: 150px;
+    margin-top: 30px;
+}
+
+.weather h1 {
+    font-size: 70px;
+    font-weight: 400;
+}
+
+.weather h2 {
+    font-size: 35px;
+    font-weight: 400;
+    margin-top: -10px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
+}
+
+.col {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.col img {
+    width: 40px;
+    margin-right: 10px;
+
+}
+
+.humidity,
+.wind {
+    font-size: 28px;
+    margin-top: -6px;
+}
+
+.error {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    display: none;
+}
+
+/* ── Responsive pass 2026-11-16: card padding and figures fit a phone ── */
+@media (max-width: 480px) {
+    .card {
+        padding: 28px 20px;
+        margin-top: 40px;
+    }
+
+    .search input {
+        height: 52px;
+        padding: 10px 18px;
+        margin-right: 10px;
+    }
+
+    .search button {
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+    }
+
+    .weather-icon {
+        width: 120px;
+    }
+
+    .weather h1 {
+        font-size: 52px;
+    }
+
+    .weather h2 {
+        font-size: 28px;
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 36px;
+    }
+
+    .col img {
+        width: 32px;
+    }
+
+    .humidity,
+    .wind {
+        font-size: 21px;
+    }
+}

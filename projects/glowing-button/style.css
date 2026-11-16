@@ -1,0 +1,66 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+    padding: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+}
+.button{
+    position: relative;
+    height: 80px;
+    background: #ff0f80;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-shadow: 0 0 5px #343a40;
+    box-shadow: 0 0 1em 0.1em #ff0f80;
+    width: 200px;
+}
+.button::after,.button::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-repeat: no-repeat;
+
+}
+.button::before{
+    background-image: radial-gradient(circle ,#ff0f80 20%, transparent 20%),
+     radial-gradient(circle, transparent 15%, #ff0f80 15%, transparent 25%),
+     radial-gradient(circle ,#ff0f80 20%, transparent 20%),
+     radial-gradient(circle, transparent 10%, #ff0f80 15%, transparent 20%)
+     ;
+    background-size: 10% 10%,20% 20%,15% 20%;
+    top: -70%;
+    background-position: 8% 90%,10% 90%,12% 90%;
+}
+.button::after{
+    background-image: radial-gradient(circle ,#ff0f80 20%, transparent 20%),
+     radial-gradient(circle, transparent 15%, #ff0f80 15%, transparent 25%),
+     radial-gradient(circle ,#ff0f80 20%, transparent 20%),
+     radial-gradient(circle, transparent 10%, #ff0f80 15%, transparent 20%)
+     ;
+    background-size: 10% 10%,20% 20%,15% 20%;
+    bottom: -70%;
+    background-position: 8% 10%,10% 10%,12% 10%;
+}
+
+/* ---- Polish pass ---- */
+.button{ transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.button:hover{ box-shadow: 0 0 2.2em 0.35em #ff0f80; transform: translateY(-2px); }
+@media (max-width: 400px){
+    .button{ width: min(200px, 80vw); height: 70px; font-size: 1.6rem; }
+}

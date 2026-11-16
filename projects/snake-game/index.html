@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Snake Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+</div>
+
+<main class="game-shell">
+
+  <!-- ══ TOP BAR ══ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">GAME</span>
+    </div>
+    <div class="top-actions">
+      <button id="btnMute" class="icon-btn" title="Mute / unmute (M)" aria-label="Toggle sound">🔊</button>
+      <button id="btnPause" class="icon-btn" title="Pause / resume (Space)" aria-label="Pause or resume">⏸</button>
+    </div>
+  </header>
+
+  <!-- ══ HUD ══ -->
+  <section class="hud" aria-label="Score board">
+    <div class="stat stat-score">
+      <span class="stat-label">Score</span>
+      <span class="stat-value" id="score">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Best</span>
+      <span class="stat-value" id="best">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Time</span>
+      <span class="stat-value" id="time">00:00</span>
+    </div>
+    <div class="stat stat-speed">
+      <span class="stat-label">Speed</span>
+      <span class="stat-value speed-value" id="speed">×1.0</span>
+    </div>
+  </section>
+
+  <!-- ══ BOARD ══ -->
+  <section class="board-wrap" id="boardWrap">
+    <canvas id="game"></canvas>
+
+    <!-- combo pill floats above the board -->
+    <div class="combo-pill hidden" id="comboPill">
+      <span class="combo-mult" id="comboMult">×2</span>
+      <span class="combo-label">COMBO</span>
+      <div class="combo-track"><div class="combo-fill" id="comboFill"></div></div>
+    </div>
+
+    <div class="go-flash hidden" id="goFlash">GO!</div>
+
+    <!-- START -->
+    <div class="overlay" id="startScreen">
+      <div class="panel">
+        <p class="kicker">A SNAKE GAME WITH TEETH</p>
+        <h1 class="title">Clumsy<br>SERPENT</h1>
+        <p class="tagline">Eat. Chain combos. Chase the gold.<br>Don't crash.</p>
+        <div class="best-chip">🏆 Best&nbsp;<strong id="bestStart">0</strong></div>
+        <button class="btn-primary" id="btnStart">▶&nbsp; Start game</button>
+        <div class="controls">
+          <div class="ctrl"><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> / <kbd>WASD</kbd></span><em>steer</em></div>
+          <div class="ctrl"><span><kbd>Space</kbd></span><em>pause</em></div>
+          <div class="ctrl"><span><kbd>M</kbd></span><em>mute</em></div>
+          <div class="ctrl touch-only"><span>👆 swipe</span><em>steer on mobile</em></div>
+        </div>
+        <div class="perks">
+          <span>🔥 combos multiply points</span>
+          <span>🪙 golden apples = big bonus</span>
+          <span>⚡ speed ramps up as you eat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME OVER -->
+    <div class="overlay hidden" id="gameOverScreen">
+      <div class="panel">
+        <p class="kicker danger">CRASHED</p>
+        <h2 class="title-sm">GAME OVER</h2>
+        <div class="newbest hidden" id="newBestBadge">✨ NEW BEST! ✨</div>
+        <div class="final-score" id="finalScore">0</div>
+        <p class="final-best">best&nbsp;<strong id="finalBest">0</strong></p>
+        <div class="stats-grid">
+          <div class="mini-stat"><span>Length</span><strong id="statLength">1</strong></div>
+          <div class="mini-stat"><span>Time</span><strong id="statTime">00:00</strong></div>
+          <div class="mini-stat"><span>Max combo</span><strong id="statCombo">×1</strong></div>
+          <div class="mini-stat"><span>Top speed</span><strong id="statSpeed">×1.0</strong></div>
+        </div>
+        <button class="btn-primary" id="btnRestart">↻&nbsp; Play again</button>
+        <p class="hint">or press <kbd>Space</kbd></p>
+      </div>
+    </div>
+
+    <!-- PAUSE -->
+    <div class="overlay hidden" id="pauseScreen">
+      <div class="panel panel-slim">
+        <h2 class="title-sm">PAUSED</h2>
+        <button class="btn-primary" id="btnResume">▶&nbsp; Resume</button>
+        <p class="hint">or press <kbd>Space</kbd></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footnote">
+    <span class="kbd-hint"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> or swipe to steer · <kbd>Space</kbd> to pause</span>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

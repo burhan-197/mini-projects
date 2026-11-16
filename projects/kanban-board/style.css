@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+:root {
+    --background-color:    #080810;
+    --bg-surface:          #0f0f18;
+    --bg-button:           #1a1a28;
+    --bg-task-color:       #14141f;
+    --bg-delete-btn:       transparent;
+    --primary-text-color:  #dde3f0;
+
+    --accent-todo:         #7c6cf4;
+    --accent-progress:     #e8993a;
+    --accent-done:         #2ec88a;
+
+    --text-secondary:      #7a839a;
+    --text-muted:          #404558;
+
+    --border-subtle:       rgba(255,255,255,0.055);
+    --border-medium:       rgba(255,255,255,0.10);
+
+    --border-radius-sm:    4px;
+    --border-radius-md:    10px;
+    --border-radius-lg:    14px;
+    --border-radius-xl:    18px;
+    --border-radius-xxl:   28px;
+
+    --nav-padding:         14px 28px;
+    --section-padding:     20px 28px 28px;
+
+    --padding-sm:  5px;
+    --padding-md:  10px;
+    --padding-lg:  15px;
+    --padding-xl:  20px;
+    --padding-xxl: 30px;
+}
+
+
+/* ── Base ───────────────────────────────────────────── */
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ── Nav ────────────────────────────────────────────── */
+
+nav {
+    padding: var(--nav-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+nav .left {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--primary-text-color);
+}
+
+nav button {
+    background: var(--bg-button);
+    border: 1px solid var(--border-medium);
+    outline: none;
+    color: var(--primary-text-color);
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: var(--border-radius-md);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+nav button:hover {
+    background: rgba(124, 108, 244, 0.12);
+    border-color: rgba(124, 108, 244, 0.35);
+    color: #a89ff7;
+}
+
+
+/* ── Board ──────────────────────────────────────────── */
+
+section {
+    padding: var(--section-padding);
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    gap: 18px;
+    overflow: hidden;
+}
+
+
+/* ── Columns ────────────────────────────────────────── */
+
+section .task-column {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-left-width: 3px;
+    flex-grow: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: var(--border-radius-lg);
+    overflow-y: auto;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Signature: each column gets its status color as a left border */
+#todo     { border-left-color: var(--accent-todo); }
+#progress { border-left-color: var(--accent-progress); }
+#done     { border-left-color: var(--accent-done); }
+
+section .task-column.hover-over {
+    transform: scale(1.015);
+    box-shadow: 0 0 0 1px var(--border-medium),
+                0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+section .task-column::-webkit-scrollbar        { width: 3px; }
+section .task-column::-webkit-scrollbar-track  { background: transparent; }
+section .task-column::-webkit-scrollbar-thumb  { background: var(--border-medium); border-radius: 2px; }
+
+
+/* ── Column headings ────────────────────────────────── */
+
+section .task-column .heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2px;
+    flex-shrink: 0;
+}
+
+section .task-column .heading .left {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+}
+
+#todo     .heading .left { color: var(--accent-todo); }
+#progress .heading .left { color: var(--accent-progress); }
+#done     .heading .left { color: var(--accent-done); }
+
+section .task-column .heading .right {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ── Task cards ─────────────────────────────────────── */
+
+section .task-column .task {
+    border-radius: var(--border-radius-md);
+    background-color: var(--bg-task-color);
+    border: 1px solid var(--border-subtle);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: grab;
+    transition: transform 0.15s ease,
+                border-color 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+section .task-column .task:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+section .task-column .task:active {
+    cursor: grabbing;
+    transform: scale(0.97);
+}
+
+/* Delete button — pill shape, low-profile */
+section .task-column .task button {
+    align-self: flex-end;
+    cursor: pointer;
+    padding: 3px 11px;
+    border-radius: 20px;
+    border: 1px solid rgba(239, 68, 68, 0.22);
+    outline: none;
+    background-color: rgba(239, 68, 68, 0.07);
+    color: #f87171;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+section .task-column .task button:hover {
+    background-color: rgba(239, 68, 68, 0.16);
+    border-color: rgba(239, 68, 68, 0.38);
+    color: #fca5a5;
+}
+
+
+/* ── Modal ──────────────────────────────────────────── */
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #0f0f1a;
+    border: 1px solid var(--border-medium);
+    padding: 24px;
+    border-radius: var(--border-radius-xl);
+    width: 360px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.65),
+                0 0 0 1px rgba(255, 255, 255, 0.04);
+    z-index: 1000;
+}
+
+.modal input,
+.modal textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--primary-text-color);
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.modal input::placeholder,
+.modal textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.modal input:focus,
+.modal textarea:focus {
+    border-color: rgba(124, 108, 244, 0.45);
+    box-shadow: 0 0 0 3px rgba(124, 108, 244, 0.10);
+    background: rgba(124, 108, 244, 0.03);
+}
+
+.modal textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.modal button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    background: var(--accent-todo);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.modal button:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.modal button:active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Responsive pass 2026-11-16: modal never wider than the phone ── */
+.modal {
+    width: min(360px, 92vw);
+}
+
+/* ── Responsive pass 2026-11-16: columns stack vertically on small screens ── */
+@media (max-width: 760px) {
+    nav {
+        padding: 12px 16px;
+    }
+
+    section {
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 16px;
+    }
+
+    section .task-column {
+        flex: none;
+        width: 100%;
+        overflow-y: visible;
+    }
+}

@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair:300,regular,500,600,700,800,900,300italic,italic,500italic,600italic,700italic,800italic,900italic');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #2C241F;
+    color: #3A2F1F;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Playfair', serif;
+}
+
+.quote-box {
+    background: #EDE4D4;
+    width: 100%;
+    max-width: 640px;
+    padding: 55px 50px;
+    text-align: center;
+    border: 6px solid #4A3728;
+    border-radius: 12px;
+    box-shadow: 12px 12px 0 #1F1813,
+        inset 0 0 60px rgba(58, 47, 31, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.quote-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 60%, rgba(42, 33, 26, 0.25) 100%);
+    pointer-events: none;
+}
+
+.quote-box::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #B8975E;
+    /* Muted gold */
+    border-radius: 0 0 4px 4px;
+}
+
+.quote-box h2 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #3A2F1F;
+    margin-bottom: 40px;
+    letter-spacing: 1.5px;
+    position: relative;
+}
+
+.quote-box h2::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 2px;
+    background: linear-gradient(to right, #B8975E, transparent);
+}
+
+.quote-box blockquote {
+    font-size: 30px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    color: #3A2F1F;
+    position: relative;
+}
+
+.quote-box span {
+    display: block;
+    font-size: 21px;
+    font-style: italic;
+    color: #6B563E;
+    margin-top: 15px;
+    letter-spacing: 0.8px;
+}
+
+.btns {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.btns button {
+    padding: 16px 34px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    border: 2px solid #4A3728;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+}
+
+.btns button:nth-child(1) {
+    background: #3A2F1F;
+    color: #EDE4D4;
+}
+
+.btns button:nth-child(1):hover {
+    background: #4A3728;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btns button:nth-child(2) {
+    background: transparent;
+    color: #3A2F1F;
+}
+
+.btns button:nth-child(2):hover {
+    background: #B8975E;
+    color: #3A2F1F;
+    border-color: #B8975E;
+}
+
+.btns img {
+    width: 26px;
+    height: 26px;
+    filter: sepia(30%) hue-rotate(10deg) brightness(0.9);
+}
+
+/* ── Responsive pass 2026-11-16: card padding, type and buttons fit a phone ── */
+@media (max-width: 700px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        padding: 16px;
+    }
+
+    .quote-box {
+        padding: 36px 22px;
+    }
+
+    .quote-box h2 {
+        font-size: 34px;
+        margin-bottom: 30px;
+    }
+
+    .quote-box blockquote {
+        font-size: 21px;
+    }
+
+    .quote-box span {
+        font-size: 17px;
+    }
+
+    .btns {
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+    }
+
+    .btns button {
+        padding: 13px 22px;
+        font-size: 15px;
+    }
+}

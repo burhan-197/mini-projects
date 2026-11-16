@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Popup Modal 1</title>
+</head>
+
+<body>
+    <div class="container">
+        <span class="label">Click to continue</span>
+        <button type="button" class="btn" id="openBtn">Open Pop-up</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="pop-up" id="popup">
+        <div class="icon-wrap">
+            <svg viewBox="0 0 24 24">
+                <polyline points="4 13 9 18 20 7" />
+            </svg>
+        </div>
+        <h2>Thanks for opening it</h2>
+        <div class="divider"></div>
+        <p>Your details have been submitted<br>successfully. We'll be in touch soon.</p>
+        <button type="button" id="closeBtn"><span>Close</span></button>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

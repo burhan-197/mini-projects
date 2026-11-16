@@ -1,0 +1,298 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0d0c0b;
+    --surface: #141210;
+    --border: rgba(255, 255, 255, 0.07);
+    --accent: #c8a96e;
+    --accent-dim: #7a6540;
+    --text: #e8e0d4;
+    --muted: rgba(232, 224, 212, 0.35);
+    --glow: rgba(200, 169, 110, 0.18);
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+}
+
+body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Josefin Sans', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+
+    background-image:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(200, 169, 110, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(200, 169, 110, 0.04) 0%, transparent 60%);
+}
+
+.site-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 48px;
+    animation: fadeDown 0.9s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.header-label {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+.site-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: 0.08em;
+    color: var(--text);
+    line-height: 1;
+}
+
+.site-title em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.gallery-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) 0.15s both;
+}
+
+#backBtn,
+#nextBtn {
+    width: 38px;
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    filter: invert(1) brightness(0.55);
+    margin: 0 18px;
+}
+
+#backBtn:hover,
+#nextBtn:hover {
+    background: rgba(200, 169, 110, 0.12);
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 20px var(--glow);
+    filter: invert(1) brightness(0.85) sepia(0.4);
+    transform: scale(1.1);
+}
+
+#backBtn:active,
+#nextBtn:active {
+    transform: scale(0.95);
+}
+
+.gallery {
+    width: 860px;
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(200, 169, 110, 0.04);
+    padding: 4px;
+    scroll-behavior: smooth;
+}
+
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    flex: none;
+    padding: 0;
+}
+
+.gallery div span {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #0a0908;
+
+    outline: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.gallery div span::before,
+.gallery div span::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.gallery div span::before {
+    top: 7px;
+    left: 7px;
+    border-top: 1px solid var(--accent);
+    border-left: 1px solid var(--accent);
+}
+
+.gallery div span::after {
+    bottom: 7px;
+    right: 7px;
+    border-bottom: 1px solid var(--accent);
+    border-right: 1px solid var(--accent);
+}
+
+.gallery div span:hover::before,
+.gallery div span:hover::after {
+    opacity: 1;
+}
+
+.gallery div img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(100%) brightness(0.75) contrast(1.05);
+    transition:
+        filter 0.5s cubic-bezier(.25, .8, .25, 1),
+        transform 0.5s cubic-bezier(.25, .8, .25, 1),
+        scale 0.5s ease;
+}
+
+.gallery div img:hover {
+    filter: grayscale(0%) brightness(1) contrast(1);
+    transform: scale(1.07);
+    cursor: pointer;
+}
+
+.site-footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 44px;
+    animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) 0.3s both;
+}
+
+.footer-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.5;
+}
+
+.footer-text {
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 960px) {
+    .gallery {
+        width: calc(100vw - 120px);
+    }
+
+    .gallery div img {
+        height: 160px;
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-wrap {
+        flex-direction: row;
+    }
+
+    .gallery {
+        width: calc(100vw - 90px);
+    }
+
+    #backBtn,
+    #nextBtn {
+        margin: 0 8px;
+        width: 30px;
+    }
+
+    .gallery div img {
+        height: 110px;
+    }
+}
+
+/* ── Responsive pass 2026-11-16: leave real room for the prev/next buttons at every width ── */
+@media (max-width: 1080px) {
+    .gallery {
+        width: calc(100vw - 170px);
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery {
+        width: calc(100vw - 104px);
+    }
+
+    #backBtn,
+    #nextBtn {
+        margin: 0 6px;
+    }
+}

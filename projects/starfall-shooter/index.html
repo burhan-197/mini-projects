@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#04060d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Starfall Shooter</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304060d'/%3E%3Cpath d='M16 4l3.2 8.4L28 13l-6.6 5.6 2 8.8-7.4-4.8-7.4 4.8 2-8.8L4 13l8.8-.6z' fill='%2367e8f9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- ══ HUD ══ -->
+<div id="hud" class="hidden">
+  <div class="hud-left">
+    <div class="score-wrap">
+      <span class="hud-label">Score</span>
+      <span id="score">0</span>
+    </div>
+    <div class="best-row">Best&nbsp;<span id="best">0</span></div>
+    <div class="lives-row"><span class="lives-ico">▲</span>&nbsp;×&nbsp;<span id="lives">3</span></div>
+    <div id="wpips" class="wpips"></div>
+  </div>
+  <div class="hud-center">
+    <div class="wave-row">Wave&nbsp;<span id="wave">1</span></div>
+    <div class="wave-track"><div id="waveFill"></div></div>
+    <!-- health bar (top HUD, clear of the ship's start position) -->
+    <div id="healthWrap" class="hidden">
+      <div id="healthTrack"><div id="healthFill"></div></div>
+    </div>
+    <div id="bossBar" class="boss-bar hidden">
+      <span class="boss-name" id="bossName">DREADNOUGHT</span>
+      <div class="boss-track"><div id="bossFill"></div></div>
+    </div>
+  </div>
+  <div class="hud-right">
+    <div class="hud-btns">
+      <button id="btnMute" class="icon-btn" title="Mute (M)" aria-label="Toggle sound">♪</button>
+      <button id="btnPause" class="icon-btn" title="Pause (P)" aria-label="Pause or resume">❚❚</button>
+    </div>
+    <div id="chips" class="chips"></div>
+  </div>
+</div>
+
+<!-- center banner (wave / warning / streak announcements) -->
+<div id="banner" class="hidden">
+  <div id="bannerTitle"></div>
+  <div id="bannerSub"></div>
+</div>
+
+<!-- legacy fire button (mobile now auto-fires; kept hidden) -->
+<button id="fireBtn" class="hidden" aria-label="Fire">FIRE</button>
+<!-- bomb button (touch only; lights up when charged) -->
+<button id="bombBtn" class="hidden" aria-label="Bomb">BOMB</button>
+
+<!-- ══ START ══ -->
+<div id="startScreen" class="overlay">
+  <div class="panel">
+    <h1 class="title">STARFALL</h1>
+    <p class="tagline">Hold the line. Chain the kills.<br>Don't get hit.</p>
+    <div class="best-chip">Best&nbsp;<strong id="bestStart">0</strong></div>
+    <div class="mode-row">
+      <button id="btnStart" class="btn-primary">Launch</button>
+    </div>
+    <div class="touch-only touch-row">
+      <span class="touch-label">Steer</span>
+      <div class="seg">
+        <button class="seg-btn" data-tm="drag">Drag</button>
+        <button class="seg-btn" data-tm="follow">Follow</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctrl"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / arrows / mouse</span><em>steer</em></div>
+      <div class="ctrl"><span><kbd>Space</kbd> / click</span><em>fire</em></div>
+      <div class="ctrl"><span><kbd>Shift</kbd></span><em>focus: slow + precise</em></div>
+      <div class="ctrl"><span><kbd>B</kbd></span><em>bomb when charged</em></div>
+      <div class="ctrl"><span><kbd>P</kbd></span><em>pause</em></div>
+      <div class="ctrl touch-only"><span>touch</span><em>steer</em><span class="sep">·</span><span>auto-fire</span><em>always on</em></div>
+    </div>
+    <div class="perks">
+      <span>kill streaks multiply score</span>
+      <span>graze bullets for bonus</span>
+      <span>bomb charges from grazes + kills</span>
+      <span>3 bosses · every 3rd wave</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAUSE ══ -->
+<div id="pauseScreen" class="overlay hidden">
+  <div class="panel panel-slim">
+    <h2 class="title-sm">Paused</h2>
+    <button id="btnResume" class="btn-primary">Resume</button>
+    <div class="pause-row">
+      <button id="btnRestartP" class="btn-ghost">Restart</button>
+      <button id="btnQuit" class="btn-ghost">Quit to menu</button>
+    </div>
+    <div class="pause-opts">
+      <label class="opt-row"><span>Volume</span><input id="volSlider" type="range" min="0" max="1" step="0.05" value="1"></label>
+      <label class="opt-row"><span>Reduce motion</span><input id="motionChk" type="checkbox"></label>
+    </div>
+    <div class="touch-only touch-row">
+      <span class="touch-label">Steer</span>
+      <div class="seg">
+        <button class="seg-btn" data-tm="drag">Drag</button>
+        <button class="seg-btn" data-tm="follow">Follow</button>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctrl"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / mouse</span><em>steer</em></div>
+      <div class="ctrl"><span><kbd>Space</kbd> / click</span><em>fire</em></div>
+      <div class="ctrl"><span><kbd>Shift</kbd></span><em>focus</em><span class="sep">·</span><span><kbd>B</kbd></span><em>bomb</em></div>
+    </div>
+    <p class="hint">or press <kbd>P</kbd></p>
+  </div>
+</div>
+
+<!-- ══ GAME OVER ══ -->
+<div id="gameOverScreen" class="overlay hidden">
+  <div class="panel">
+    <p class="kicker danger">Ship destroyed</p>
+    <h2 class="title-sm">Game over</h2>
+    <div id="newBestBadge" class="newbest hidden">New best!</div>
+    <div class="rank-row">
+      <div id="rankLetter" class="rank-letter">D</div>
+      <div class="rank-sub"><span id="rankLabel">pilot rank</span><span id="shortBy" class="short-by"></span></div>
+    </div>
+    <div id="finalScore" class="final-score">0</div>
+    <p class="final-best">best&nbsp;<strong id="finalBest">0</strong></p>
+    <div class="stats-grid">
+      <div class="mini-stat"><span>Wave</span><strong id="statWave">1</strong></div>
+      <div class="mini-stat"><span>Kills</span><strong id="statKills">0</strong></div>
+      <div class="mini-stat"><span>Best combo</span><strong id="statCombo">×1</strong></div>
+      <div class="mini-stat"><span>Accuracy</span><strong id="statAcc">0%</strong></div>
+      <div class="mini-stat"><span>Grazes</span><strong id="statGraze">0</strong></div>
+      <div class="mini-stat"><span>Time</span><strong id="statTime">0:00</strong></div>
+    </div>
+    <button id="btnRestart" class="btn-primary">Play again</button>
+    <button id="btnMenu" class="btn-ghost">Menu</button>
+    <p class="hint">or press <kbd>Space</kbd></p>
+  </div>
+</div>
+
+<script src="game.js?v=7"></script>
+</body>
+</html>

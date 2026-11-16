@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Country Details</title>
+</head>
+
+<body>
+    <header class="header-container">
+        <div class="header-content">
+            <h2 class="title">Where in the world?</h2>
+            <p><i class="fa-regular fa-moon"></i> Dark Mode</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <a class="back-button" onclick="history.back()">← Back</a>
+            <div class="content">
+                <div class="flag">
+                    <img src="">
+                </div>
+
+                <div class="info">
+                    <h1> </h1>
+
+                    <div class="info-grid">
+                        <div>
+                            <p>Native Name:</p>
+                            <span class="nativeName"></span>
+                        </div>
+                        <div>
+                            <p>Top Level Domain:</p>
+                            <span class="topLevelDomain"></span>
+                        </div>
+                        <div>
+                            <p>Population:</p>
+                            <span class="population"></span>
+                        </div>
+                        <div>
+                            <p>Currencies:</p>
+                            <span class="currency"></span>
+                        </div>
+                        <div>
+                            <p>Region:</p>
+                            <span class="region"></span>
+                        </div>
+                        <div>
+                            <p>Languages:</p>
+                            <span class="languages"></span>
+                        </div>
+                        <div>
+                            <p>Sub Region:</p>
+                            <span class="subRegion"></span>
+                        </div>
+                        <div>
+                            <p>Capital:</p>
+                            <span class="capital"></span>
+                        </div>
+                    </div>
+
+                    <div class="border-countries">
+                        <p>Border Countries:</p>
+                        <div class="bordered-country">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+    <script src="./country.js"></script>
+</body>
+
+</html>
